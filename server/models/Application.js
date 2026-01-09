@@ -35,6 +35,10 @@ const applicationSchema = new mongoose.Schema(
         jobLink: {
             type: String,
         },
+        reminderSent: {
+            type: Boolean,
+            default: false,
+        },
     },
     { timestamps: true }
 );
