@@ -1,3 +1,7 @@
+// JWT_SECRET = the stamp used to sign tickets (server-only)
+// JWT token = the stamped ticket given to a user
+// Protected route = security guard checking the ticket
+
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 
