@@ -4,6 +4,13 @@ import {
     deleteApplication,
 } from "../api/applications.api";
 
+const statusColors = {
+    Applied: "text-blue-500",
+    Interview: "text-yellow-500",
+    Offer: "text-green-500",
+    Rejected: "text-red-500",
+};
+
 const ApplicationCard = ({ app, onChange }) => {
     const [status, setStatus] = useState(app.status);
     const [editing, setEditing] = useState(false);
@@ -46,7 +53,9 @@ const ApplicationCard = ({ app, onChange }) => {
                     </button>
                 </>
             ) : (
-                <p className="text-sm">{app.status}</p>
+                <p className={`text-sm ${statusColors[app.status]}`}>
+                    {app.status}
+                </p>
             )}
 
             <div className="flex gap-2 text-sm">
