@@ -6,6 +6,12 @@ import ApplicationCard from "../components/ApplicationCard";
 const Applications = () => {
     const [apps, setApps] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [filter, setFilter] = useState("All");
+
+    const filteredApps =
+        filter === "All"
+            ? apps
+            : apps.filter((app) => app.status === filter);
 
     const loadApplications = async () => {
         const data = await getApplications();
@@ -21,15 +27,33 @@ const Applications = () => {
         <div className="space-y-6">
             <ApplicationForm onAdd={loadApplications} />
 
+            <select
+                value={filter}
+                onChange={(e) => setFilter(e.target.value)}
+                className="border p-2"
+            >
+                <option>All</option>
+                <option>Applied</option>
+                <option>Interview</option>
+                <option>Offer</option>
+                <option>Rejected</option>
+            </select>
+
+
             {loading ? (
                 <p>Loading...</p>
             ) : (
                 <div className="grid gap-4">
-                    {apps.map((app) => (
-                        <ApplicationCard key={app._id} app={app} />
+                    {filteredApps.map((app) => (
+                        <ApplicationCard
+                            key={app._id}
+                            app={app}
+                            onChange={loadApplications}
+                        />
                     ))}
                 </div>
             )}
+
         </div>
     );
 };

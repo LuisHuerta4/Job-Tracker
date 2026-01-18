@@ -1,13 +1,69 @@
-const ApplicationCard = ({ app }) => {
+import { useState } from "react";
+import {
+    updateApplication,
+    deleteApplication,
+} from "../api/applications.api";
+
+const ApplicationCard = ({ app, onChange }) => {
+    const [status, setStatus] = useState(app.status);
+    const [editing, setEditing] = useState(false);
+
+    const handleUpdate = async () => {
+        await updateApplication(app._id, { status });
+        setEditing(false);
+        onChange();
+    };
+
+    const handleDelete = async () => {
+        if (!window.confirm("Delete this application?")) return;
+        await deleteApplication(app._id);
+        onChange();
+    };
+
     return (
-        <div className="border p-4 rounded">
+        <div className="border p-4 rounded space-y-2">
             <h3 className="font-semibold">{app.company}</h3>
             <p>{app.role}</p>
-            <p className="text-sm text-gray-500">{app.status}</p>
-            <p className="text-sm">
-                Follow-up:{" "}
-                {new Date(app.followUpDate).toLocaleDateString()}
-            </p>
+
+            {editing ? (
+                <>
+                    <select
+                        value={status}
+                        onChange={(e) => setStatus(e.target.value)}
+                        className="border p-1"
+                    >
+                        <option>Applied</option>
+                        <option>Interview</option>
+                        <option>Offer</option>
+                        <option>Rejected</option>
+                    </select>
+
+                    <button
+                        onClick={handleUpdate}
+                        className="text-sm underline ml-2"
+                    >
+                        Save
+                    </button>
+                </>
+            ) : (
+                <p className="text-sm">{app.status}</p>
+            )}
+
+            <div className="flex gap-2 text-sm">
+                <button
+                    onClick={() => setEditing(!editing)}
+                    className="underline"
+                >
+                    Edit
+                </button>
+
+                <button
+                    onClick={handleDelete}
+                    className="underline text-red-500"
+                >
+                    Delete
+                </button>
+            </div>
         </div>
     );
 };

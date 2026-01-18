@@ -33,6 +33,7 @@ const ApplicationForm = ({ onAdd }) => {
                 onChange={handleChange}
                 value={form.company}
                 className="w-full border p-2"
+                autoComplete="off"
             />
 
             <input
@@ -41,6 +42,7 @@ const ApplicationForm = ({ onAdd }) => {
                 onChange={handleChange}
                 value={form.role}
                 className="w-full border p-2"
+                autoComplete="off"
             />
 
             <input
@@ -49,6 +51,7 @@ const ApplicationForm = ({ onAdd }) => {
                 onChange={handleChange}
                 value={form.followUpDate}
                 className="w-full border p-2"
+                autoComplete="off"
             />
 
             <button className="bg-black text-white px-4 py-2">
