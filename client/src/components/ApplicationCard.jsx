@@ -3,10 +3,11 @@ import {
     updateApplication,
     deleteApplication,
 } from "../api/applications.api";
+import { STATUSES } from "../../constants/statuses";
 
 const statusColors = {
     Applied: "text-blue-500",
-    Interview: "text-yellow-500",
+    Interviewing: "text-yellow-500",
     Offer: "text-green-500",
     Rejected: "text-red-500",
 };
@@ -30,6 +31,7 @@ const ApplicationCard = ({ app, onChange }) => {
     return (
         <div className="border p-4 rounded space-y-2">
             <h3 className="font-semibold">{app.company}</h3>
+            <h3 className="font-semibold">{app.followUpDate}</h3>
             <p>{app.role}</p>
 
             {editing ? (
@@ -37,12 +39,13 @@ const ApplicationCard = ({ app, onChange }) => {
                     <select
                         value={status}
                         onChange={(e) => setStatus(e.target.value)}
-                        className="border p-1"
+                        className="border p-2"
                     >
-                        <option>Applied</option>
-                        <option>Interview</option>
-                        <option>Offer</option>
-                        <option>Rejected</option>
+                        {STATUSES.map((status) => (
+                            <option key={status} value={status}>
+                                {status}
+                            </option>
+                        ))}
                     </select>
 
                     <button

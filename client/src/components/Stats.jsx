@@ -19,7 +19,7 @@ const Stats = ({ applications }) => {
         <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
             <StatCard label="Total" value={stats.total} />
             <StatCard label="Applied" value={stats.Applied || 0} />
-            <StatCard label="Interview" value={stats.Interview || 0} />
+            <StatCard label="Interviewing" value={stats.Interviewing || 0} />
             <StatCard label="Offer" value={stats.Offer || 0} />
             <StatCard label="Rejected" value={stats.Rejected || 0} />
         </div>

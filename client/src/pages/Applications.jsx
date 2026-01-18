@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getApplications } from "../api/applications.api";
+import { getApplications, updateApplication } from "../api/applications.api";
 import ApplicationForm from "../components/ApplicationForm";
 import Stats from "../components/Stats";
 import ViewTabs from "../views/ViewTabs";
@@ -24,6 +24,12 @@ const Applications = () => {
         setLoading(false);
     };
 
+    const updateStatus = async (id, status) => {
+        await updateApplication(id, { status });
+        loadApplications();
+    };
+
+
     useEffect(() => {
         loadApplications();
     }, []);
@@ -43,7 +49,7 @@ const Applications = () => {
             >
                 <option>All</option>
                 <option>Applied</option>
-                <option>Interview</option>
+                <option>Interviewing</option>
                 <option>Offer</option>
                 <option>Rejected</option>
             </select>
@@ -64,7 +70,13 @@ const Applications = () => {
                         />
                     )}
 
-                    {view === "table" && <TableView />}
+                    {view === "table" && (
+                        <TableView
+                            applications={filteredApps}
+                            onStatusChange={updateStatus}
+                        />
+                    )}
+
                     {view === "kanban" && <KanbanView />}
                 </>
             )}
