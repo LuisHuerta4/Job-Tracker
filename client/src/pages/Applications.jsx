@@ -1,10 +1,14 @@
 import { useEffect, useState } from "react";
 import { getApplications } from "../api/applications.api";
 import ApplicationForm from "../components/ApplicationForm";
-import ApplicationCard from "../components/ApplicationCard";
 import Stats from "../components/Stats";
+import ViewTabs from "../views/ViewTabs";
+import CardView from "../views/CardView";
+import TableView from "../views/TableView";
+import KanbanView from "../views/KanbanView";
 
 const Applications = () => {
+    const [view, setView] = useState("cards");
     const [apps, setApps] = useState([]);
     const [loading, setLoading] = useState(true);
     const [filter, setFilter] = useState("All");
@@ -30,6 +34,8 @@ const Applications = () => {
 
             {apps.length > 0 && <Stats applications={apps} />}
 
+            <ViewTabs view={view} setView={setView} />
+
             <select
                 value={filter}
                 onChange={(e) => setFilter(e.target.value)}
@@ -50,15 +56,17 @@ const Applications = () => {
                     No applications yet. Add your first one!
                 </p>
             ) : (
-                <div className="grid gap-4">
-                    {filteredApps.map((app) => (
-                        <ApplicationCard
-                            key={app._id}
-                            app={app}
+                <>
+                    {view === "cards" && (
+                        <CardView
+                            applications={filteredApps}
                             onChange={loadApplications}
                         />
-                    ))}
-                </div>
+                    )}
+
+                    {view === "table" && <TableView />}
+                    {view === "kanban" && <KanbanView />}
+                </>
             )}
 
 
