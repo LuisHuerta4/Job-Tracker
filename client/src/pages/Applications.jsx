@@ -25,10 +25,21 @@ const Applications = () => {
     };
 
     const updateStatus = async (id, status) => {
-        await updateApplication(id, { status });
-        loadApplications();
-    };
+        // 1. Update UI immediately
+        setApps((prevApps) =>
+            prevApps.map((app) =>
+                app._id === id ? { ...app, status } : app
+            )
+        );
 
+        // 2. Persist to backend
+        try {
+            await updateApplication(id, { status });
+        } catch (err) {
+            console.error("Failed to update status", err);
+            loadApplications(); // fallback safety
+        }
+    };
 
     useEffect(() => {
         loadApplications();

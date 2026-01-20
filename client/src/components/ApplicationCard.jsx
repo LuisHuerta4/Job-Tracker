@@ -31,7 +31,7 @@ const ApplicationCard = ({ app, onChange }) => {
     return (
         <div className="border p-4 rounded space-y-2">
             <h3 className="font-semibold">{app.company}</h3>
-            <h3 className="font-semibold">{app.followUpDate}</h3>
+            {/* <h3 className="font-semibold">{app.followUpDate}</h3> */}
             <p>{app.role}</p>
 
             {editing ? (
