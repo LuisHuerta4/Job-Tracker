@@ -77,7 +77,12 @@ const Applications = () => {
                         />
                     )}
 
-                    {view === "kanban" && <KanbanView />}
+                    {view === "kanban" && (
+                        <KanbanView
+                            applications={filteredApps}
+                            onStatusChange={updateStatus}
+                        />
+                    )}
                 </>
             )}
 
