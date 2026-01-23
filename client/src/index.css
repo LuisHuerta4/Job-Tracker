@@ -1,1 +1,84 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@200..900&family=Poppins:wght@300..800&display=swap");
+
 @import "tailwindcss";
+
+@theme {
+    /* Fonts */
+    --font-sans: "Inter", sans-serif;
+    --font-heading: "Poppins", sans-serif;
+
+    /* Neutral UI */
+    --color-bg-main: #f7f7f7;
+    --color-bg-card: #ffffff;
+    --color-border: #e5e7eb;
+    --color-text-primary: #111827;
+    --color-text-secondary: #6b7280;
+    --color-text-muted: #9ca3af;
+
+    /* Brand Purple */
+    --color-primary: #5c5c99;
+    --color-primary-soft: #a3a3cc;
+    --color-primary-light: #e6e6f5;
+
+    /* Status Colors */
+    --color-applied: #2563eb;
+    --color-interviewing: #d97706;
+    --color-offer: #16a34a;
+    --color-rejected: #dc2626;
+}
+
+html,
+body {
+    width: 100%;
+    background-color: var(--color-bg-main);
+    color: var(--color-text-primary);
+    font-family: var(--font-sans);
+    scroll-behavior: smooth;
+}
+
+@utility card {
+    @apply bg-[var(--color-bg-card)] border border-[var(--color-border)] rounded-xl shadow-sm p-4;
+}
+
+@utility heading {
+    font-family: var(--font-heading);
+}
+
+@utility subtle-text {
+    color: var(--color-text-secondary);
+}
+
+@utility auth-card {
+    @apply glass-card p-8 w-full max-w-md relative overflow-hidden;
+}
+
+@utility auth-input {
+    @apply w-full px-3 py-2 rounded-lg outline-none transition;
+    @apply bg-white/80 text-gray-900 placeholder:text-gray-500;
+    @apply border border-white/40 focus:ring-2 focus:ring-[var(--color-primary-soft)];
+}
+
+@utility auth-button {
+    @apply w-full bg-[var(--color-primary)] text-white py-2 rounded-lg font-medium hover:opacity-90 hover:cursor-pointer transition;
+}
+
+@utility auth-title {
+    @apply text-2xl font-semibold text-white;
+    font-family: var(--font-heading);
+}
+
+@utility auth-subtitle {
+    @apply text-sm text-white/70;
+}
+
+
+@utility glass-card {
+    @apply bg-white/15 backdrop-blur-xl border border-white/20 shadow-2xl rounded-2xl;
+}
+
+@utility auth-bg {
+    @apply min-h-screen flex items-center justify-center relative overflow-hidden;
+    background: linear-gradient(135deg,
+            var(--color-primary),
+            #1f2937);
+}
