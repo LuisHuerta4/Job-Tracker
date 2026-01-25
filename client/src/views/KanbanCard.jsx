@@ -21,7 +21,7 @@ const KanbanCard = ({ app }) => {
             style={style}
             {...attributes}
             {...listeners}
-            className="bg-white p-3 rounded shadow-sm cursor-grab"
+            className="kanban-card"
         >
             <h4 className="font-medium">{app.company}</h4>
             <p className="text-sm text-gray-600">{app.role}</p>

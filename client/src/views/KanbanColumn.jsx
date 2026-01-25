@@ -9,7 +9,7 @@ const KanbanColumn = ({ status, applications }) => {
     });
 
     return (
-        <div ref={setNodeRef} className="bg-gray-100 rounded p-3 min-h-[400px]">
+        <div ref={setNodeRef} className="kanban-column">
             <h3 className="font-semibold mb-3">{status}</h3>
 
             <SortableContext

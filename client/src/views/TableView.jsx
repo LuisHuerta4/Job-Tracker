@@ -3,7 +3,7 @@ import { STATUSES } from "../../constants/statuses";
 const TableView = ({ applications, onStatusChange }) => {
     return (
         <div className="overflow-x-auto">
-            <table className="w-full border-collapse text-sm">
+            <table className="dashboard-table">
                 <thead>
                     <tr className="border-b">
                         <th className="text-left p-3">Company</th>
@@ -14,7 +14,7 @@ const TableView = ({ applications, onStatusChange }) => {
 
                 <tbody>
                     {applications.map((app) => (
-                        <tr key={app._id} className="border-b hover:bg-gray-50">
+                        <tr key={app._id} className="dashboard-table-row">
                             <td className="p-3">{app.company}</td>
                             <td className="p-3">{app.role}</td>
                             <td className="p-3">
@@ -23,7 +23,7 @@ const TableView = ({ applications, onStatusChange }) => {
                                     onChange={(e) =>
                                         onStatusChange(app._id, e.target.value)
                                     }
-                                    className="border rounded px-2 py-1"
+                                    className="dashboard-table-select"
                                 >
                                     {STATUSES.map((status) => (
                                         <option key={status} value={status}>

@@ -181,3 +181,31 @@ body {
     @apply text-xs uppercase tracking-wide;
     color: var(--color-text-secondary);
 }
+
+/* Table */
+
+@utility dashboard-table {
+    @apply w-full text-sm border border-[var(--color-border)] rounded-lg overflow-hidden;
+}
+
+@utility dashboard-table-row {
+    @apply border-b border-[var(--color-border)] hover:bg-[var(--color-bg-secondary)] transition;
+}
+
+@utility dashboard-table-select {
+    @apply bg-transparent border border-[var(--color-border)] px-2 py-1 rounded text-sm;
+}
+
+/* Kanban */
+
+@utility kanban-column {
+    @apply bg-[var(--color-bg-card)] border border-[var(--color-border)] rounded-xl p-4 min-h-[420px];
+}
+
+@utility kanban-card {
+    @apply bg-[var(--color-bg-secondary)] border border-[var(--color-border)] rounded-lg p-3 cursor-grab transition;
+
+    &:hover {
+        border-color: white;
+    }
+}
