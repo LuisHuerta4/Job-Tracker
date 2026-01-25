@@ -81,3 +81,103 @@ body {
     @apply min-h-screen flex items-center justify-center;
     background: linear-gradient(180deg, #181818, #393939);
 }
+
+/* Dashboard Stats */
+
+@utility stats-wrapper {
+    @apply grid grid-cols-2 md:grid-cols-5 gap-10 py-6;
+}
+
+@utility stat-circle {
+    @apply w-28 h-28 md:w-32 md:h-32 rounded-full flex items-center justify-center;
+    background: radial-gradient(circle at 30% 30%, #2a2a2a, #000000);
+    border: 1px solid var(--color-border);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+
+    &:hover {
+        transform: translateY(-4px) scale(1.02);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    }
+}
+
+@utility stat-value {
+    @apply text-4xl md:text-5xl font-medium text-white;
+    font-family: var(--font-heading);
+}
+
+@utility stat-label {
+    @apply text-sm tracking-wide uppercase;
+    color: var(--color-text-secondary);
+    font-family: var(--font-heading);
+}
+
+/* Dashboard Layout */
+
+@utility dashboard {
+    @apply max-w-7xl mx-auto px-6 py-10 space-y-10;
+}
+
+@utility dashboard-header {
+    @apply space-y-2;
+}
+
+@utility dashboard-title {
+    @apply text-3xl tracking-wide;
+    font-family: var(--font-heading);
+}
+
+@utility dashboard-subtitle {
+    @apply text-sm text-[var(--color-text-secondary)];
+}
+
+@utility dashboard-controls {
+    @apply flex flex-col md:flex-row md:items-center md:justify-between gap-4;
+}
+
+@utility dashboard-filter {
+    @apply bg-transparent border border-[var(--color-border)] px-3 py-2 rounded-md text-sm;
+    color: var(--color-text-primary);
+}
+
+@utility dashboard-content {
+    @apply mt-2;
+}
+
+/* Navbar */
+
+@utility navbar {
+    @apply flex justify-between items-center px-6 py-4 border-b border-[var(--color-border)];
+    background: var(--color-bg-main);
+}
+
+@utility navbar-logo {
+    @apply text-lg tracking-widest;
+    font-family: var(--font-heading);
+}
+
+@utility navbar-right {
+    @apply flex items-center gap-4 text-sm;
+}
+
+@utility navbar-user {
+    @apply text-[var(--color-text-secondary)];
+}
+
+@utility navbar-logout {
+    @apply px-3 py-1 border border-[var(--color-border)] rounded-md transition-colors;
+
+    &:hover {
+        background: var(--color-bg-secondary);
+    }
+}
+
+/* Application Cards */
+
+@utility app-card {
+    @apply card space-y-3 hover:border-white transition;
+}
+
+@utility app-status {
+    @apply text-xs uppercase tracking-wide;
+    color: var(--color-text-secondary);
+}

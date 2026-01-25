@@ -29,7 +29,7 @@ const ApplicationCard = ({ app, onChange }) => {
     };
 
     return (
-        <div className="border p-4 rounded space-y-2">
+        <div className="border p-4 rounded space-y-2 app-card">
             <h3 className="font-semibold">{app.company}</h3>
             {/* <h3 className="font-semibold">{app.followUpDate}</h3> */}
             <p>{app.role}</p>
@@ -56,7 +56,7 @@ const ApplicationCard = ({ app, onChange }) => {
                     </button>
                 </>
             ) : (
-                <p className={`text-sm ${statusColors[app.status]}`}>
+                <p className={`text-sm ${statusColors[app.status]} app-status`}>
                     {app.status}
                 </p>
             )}

@@ -5,16 +5,20 @@ const Navbar = () => {
     const { user, logout } = useContext(AuthContext);
 
     return (
-        <nav className="flex justify-between p-4 border-b">
-            <h1 className="font-semibold">Job Tracker</h1>
+        <nav className="navbar">
+            <div className="navbar-left">
+                <h1 className="navbar-logo">JobTracker</h1>
+            </div>
 
             {user && (
-                <button
-                    onClick={logout}
-                    className="text-sm underline"
-                >
-                    Logout
-                </button>
+                <div className="navbar-right">
+                    <span className="navbar-user">
+                        {user.name || "User"}
+                    </span>
+                    <button onClick={logout} className="navbar-logout">
+                        Logout
+                    </button>
+                </div>
             )}
         </nav>
     );
