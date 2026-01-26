@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { DndContext, DragOverlay } from "@dnd-kit/core";
 import KanbanColumn from "./KanbanColumn";
+import KanbanCard from "./KanbanCard";
 import { STATUSES } from "../../constants/statuses";
 
 const KanbanView = ({ applications, onStatusChange }) => {
@@ -47,16 +48,17 @@ const KanbanView = ({ applications, onStatusChange }) => {
 
             <DragOverlay>
                 {activeApp ? (
-                    <div className="bg-white p-3 rounded shadow-lg">
-                        <h4 className="font-medium">
+                    <div className="kanban-card scale-105 shadow-2xl border-white">
+                        <h4 className="font-medium tracking-wide">
                             {activeApp.company}
                         </h4>
-                        <p className="text-sm text-gray-600">
+                        <p className="text-xs text-(--color-text-secondary)">
                             {activeApp.role}
                         </p>
                     </div>
                 ) : null}
             </DragOverlay>
+
         </DndContext>
     );
 };

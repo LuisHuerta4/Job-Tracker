@@ -23,7 +23,7 @@ const TableView = ({ applications, onStatusChange }) => {
                                     onChange={(e) =>
                                         onStatusChange(app._id, e.target.value)
                                     }
-                                    className="dashboard-table-select"
+                                    className="select-dark"
                                 >
                                     {STATUSES.map((status) => (
                                         <option key={status} value={status}>

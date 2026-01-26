@@ -43,7 +43,7 @@ const ApplicationCard = ({ app, onChange }) => {
                         <select
                             value={status}
                             onChange={(e) => setStatus(e.target.value)}
-                            className="app-select"
+                            className="select-dark"
                         >
                             {STATUSES.map((s) => (
                                 <option key={s} value={s}>

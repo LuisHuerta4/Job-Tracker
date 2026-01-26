@@ -63,7 +63,7 @@ const Applications = () => {
                 <select
                     value={filter}
                     onChange={(e) => setFilter(e.target.value)}
-                    className="dashboard-filter"
+                    className="select-dark"
                 >
                     <option>All</option>
                     <option>Applied</option>
