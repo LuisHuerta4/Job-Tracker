@@ -173,13 +173,53 @@ body {
 
 /* Application Cards */
 
-@utility app-card {
-    @apply card space-y-3 hover:border-white transition;
-}
-
 @utility app-status {
     @apply text-xs uppercase tracking-wide;
     color: var(--color-text-secondary);
+}
+
+@utility app-card {
+    @apply bg-[var(--color-bg-card)] border border-[var(--color-border)] rounded-xl p-5 space-y-3 transition;
+
+    &:hover {
+        border-color: white;
+        transform: translateY(-2px);
+    }
+}
+
+@utility app-card-header {
+    @apply flex justify-between items-center;
+}
+
+@utility app-card-company {
+    @apply text-lg font-medium tracking-wide;
+    font-family: var(--font-heading);
+}
+
+@utility app-card-role {
+    @apply text-sm text-[var(--color-text-secondary)];
+}
+
+@utility app-card-footer {
+    @apply flex justify-between items-center pt-2 text-xs;
+}
+
+@utility app-action {
+    @apply text-[var(--color-text-secondary)] hover:text-white transition;
+}
+
+@utility app-action-danger {
+    @apply text-[var(--color-text-muted)] hover:text-white transition;
+}
+
+@utility app-select {
+    @apply bg-transparent border border-[var(--color-border)] px-2 py-1 rounded text-xs;
+}
+
+/* Status Pills */
+
+@utility status-pill {
+    @apply px-2 py-0.5 rounded-full text-xs tracking-wide border;
 }
 
 /* Table */
@@ -202,10 +242,25 @@ body {
     @apply bg-[var(--color-bg-card)] border border-[var(--color-border)] rounded-xl p-4 min-h-[420px];
 }
 
+@utility kanban-column-header {
+    @apply flex justify-between items-center pb-2 border-b border-[var(--color-border)];
+    font-family: var(--font-heading);
+    letter-spacing: 0.05em;
+}
+
+@utility kanban-count {
+    @apply text-xs text-[var(--color-text-muted)];
+}
+
+@utility kanban-list {
+    @apply flex flex-col gap-2 mt-2;
+}
+
 @utility kanban-card {
     @apply bg-[var(--color-bg-secondary)] border border-[var(--color-border)] rounded-lg p-3 cursor-grab transition;
 
     &:hover {
         border-color: white;
+        transform: translateY(-5px);
     }
 }

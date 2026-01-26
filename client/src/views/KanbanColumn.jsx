@@ -10,13 +10,16 @@ const KanbanColumn = ({ status, applications }) => {
 
     return (
         <div ref={setNodeRef} className="kanban-column">
-            <h3 className="font-semibold mb-3">{status}</h3>
+            <div className="kanban-column-header">
+                <h3>{status}</h3>
+                <span className="kanban-count">{applications.length}</span>
+            </div>
 
             <SortableContext
                 items={applications.map(app => app._id)}
                 strategy={verticalListSortingStrategy}
             >
-                <div className="space-y-2">
+                <div className="kanban-list">
                     {applications.map(app => (
                         <KanbanCard key={app._id} app={app} />
                     ))}

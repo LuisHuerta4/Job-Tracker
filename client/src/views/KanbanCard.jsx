@@ -23,8 +23,8 @@ const KanbanCard = ({ app }) => {
             {...listeners}
             className="kanban-card"
         >
-            <h4 className="font-medium">{app.company}</h4>
-            <p className="text-sm text-gray-600">{app.role}</p>
+            <h4 className="font-medium tracking-wide">{app.company}</h4>
+            <p className="text-xs text-(--color-text-secondary)">{app.role}</p>
         </div>
     );
 };
