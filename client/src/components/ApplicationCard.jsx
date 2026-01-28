@@ -1,13 +1,6 @@
 import { useState } from "react";
 import { updateApplication, deleteApplication } from "../api/applications.api";
-import { STATUSES } from "../../constants/statuses";
-
-const statusColors = {
-    Applied: "text-blue-500",
-    Interviewing: "text-yellow-500",
-    Offer: "text-green-500",
-    Rejected: "text-red-500",
-};
+import { STATUSES, statusColors } from "../../constants/statuses";
 
 const ApplicationCard = ({ app, onChange }) => {
     const [status, setStatus] = useState(app.status);

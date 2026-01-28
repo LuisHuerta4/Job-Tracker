@@ -2,7 +2,7 @@ import { useState } from "react";
 import { DndContext, DragOverlay } from "@dnd-kit/core";
 import KanbanColumn from "./KanbanColumn";
 import KanbanCard from "./KanbanCard";
-import { STATUSES } from "../../constants/statuses";
+import { STATUSES, statusColors } from "../../constants/statuses";
 
 const KanbanView = ({ applications, onStatusChange }) => {
     const [activeApp, setActiveApp] = useState(null);

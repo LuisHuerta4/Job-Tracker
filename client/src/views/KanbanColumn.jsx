@@ -1,6 +1,7 @@
 import { useDroppable } from "@dnd-kit/core";
 import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";
 import KanbanCard from "./KanbanCard";
+import { statusColors } from "../../constants/statuses";
 
 const KanbanColumn = ({ status, applications }) => {
     const { setNodeRef } = useDroppable({
@@ -11,7 +12,7 @@ const KanbanColumn = ({ status, applications }) => {
     return (
         <div ref={setNodeRef} className="kanban-column">
             <div className="kanban-column-header">
-                <h3>{status}</h3>
+                <h3 className={statusColors[status]}>{status}</h3>
                 <span className="kanban-count">{applications.length}</span>
             </div>
 

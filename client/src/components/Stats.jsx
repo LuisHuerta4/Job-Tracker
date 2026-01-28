@@ -1,3 +1,5 @@
+import { statusColors } from "../../constants/statuses";
+
 const Stats = ({ applications }) => {
     const stats = applications.reduce(
         (acc, app) => {
@@ -10,7 +12,7 @@ const Stats = ({ applications }) => {
 
     const StatCircle = ({ label, value }) => (
         <div className="flex flex-col items-center gap-3">
-            <div className="stat-circle">
+            <div className={`stat-circle ${statusColors[label]}`}>
                 <span className="stat-value">{value}</span>
             </div>
             <p className="stat-label">{label}</p>

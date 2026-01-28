@@ -24,10 +24,11 @@
     --color-accent: #ffffff;
 
     /* Status Colors*/
-    --color-applied: #b4b4b4;
-    --color-interviewing: #ffffff;
-    --color-offer: #d1d1d1;
-    --color-rejected: #727272;
+    --color-applied: #3b82f6;
+    --color-interviewing: #facc15;
+    --color-offer: #22c55e;
+    --color-rejected: #ef4444;
+    --color-total: #8b5cf6;
 }
 
 html,
@@ -104,14 +105,9 @@ body {
 
 @utility stat-circle {
     @apply w-28 h-28 md:w-32 md:h-32 rounded-full flex flex-col items-center justify-center;
-    background: var(--color-bg-card);
-    border: 1px solid var(--color-border);
-    transition: background-color 0.2s ease;
-
-    &:hover {
-        background: var(--color-bg-secondary);
-        border-color: var(--color-text-muted);
-    }
+    background-color: var(--color-bg-card);
+    border: 1px solid;
+    transition: all 0.2s ease;
 }
 
 @utility stat-value {
