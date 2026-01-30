@@ -7,6 +7,8 @@ const ApplicationForm = ({ onAdd }) => {
         role: "",
         status: "Applied",
         followUpDate: "",
+        notes: "",
+        jobLink: "",
     });
 
     const handleChange = (e) => {
@@ -16,13 +18,22 @@ const ApplicationForm = ({ onAdd }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         await createApplication(form);
-        setForm({ company: "", role: "", status: "Applied", followUpDate: "" });
+
+        setForm({
+            company: "",
+            role: "",
+            status: "Applied",
+            followUpDate: "",
+            notes: "",
+            jobLink: "",
+        });
+
         onAdd();
     };
 
     return (
         <form onSubmit={handleSubmit} className="space-y-5">
-            <h2 className="text-xl font-semibold tracking-wide heading">
+            <h2 className="text-lg font-semibold tracking-wide heading">
                 Create Application
             </h2>
 
@@ -34,6 +45,7 @@ const ApplicationForm = ({ onAdd }) => {
                     value={form.company}
                     className="auth-input"
                     autoComplete="off"
+                    required
                 />
 
                 <input
@@ -43,19 +55,26 @@ const ApplicationForm = ({ onAdd }) => {
                     value={form.role}
                     className="auth-input"
                     autoComplete="off"
+                    required
                 />
 
-                <select
-                    name="status"
-                    value={form.status}
+                <input
+                    name="jobLink"
+                    placeholder="Job Link (optional)"
                     onChange={handleChange}
-                    className="select-dark w-full"
-                >
-                    <option>Applied</option>
-                    <option>Interviewing</option>
-                    <option>Offer</option>
-                    <option>Rejected</option>
-                </select>
+                    value={form.jobLink}
+                    className="auth-input"
+                    autoComplete="off"
+                />
+                
+                <textarea
+                    name="notes"
+                    placeholder="Notes (interview details, recruiter name, etc.)"
+                    onChange={handleChange}
+                    value={form.notes}
+                    rows={3}
+                    className="auth-input resize-none"
+                />
 
                 <div className="space-y-1">
                     <label className="text-xs tracking-wide uppercase subtle-text">

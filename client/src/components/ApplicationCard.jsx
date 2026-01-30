@@ -2,7 +2,7 @@ import { useState } from "react";
 import { updateApplication, deleteApplication } from "../api/applications.api";
 import { STATUSES, statusColors } from "../../constants/statuses";
 
-const ApplicationCard = ({ app, onChange }) => {
+const ApplicationCard = ({ app, onChange, onView }) => {
     const [status, setStatus] = useState(app.status);
     const [editing, setEditing] = useState(false);
 
@@ -49,12 +49,18 @@ const ApplicationCard = ({ app, onChange }) => {
                         </button>
                     </div>
                 ) : (
-                    <button
-                        onClick={() => setEditing(true)}
-                        className="app-action"
-                    >
-                        Edit
-                    </button>
+                    <>
+                        <button
+                            onClick={() => setEditing(true)}
+                            className="app-action"
+                        >
+                            Edit
+                        </button>
+
+                        <button onClick={onView} className="app-action">
+                            View
+                        </button>
+                    </>
                 )}
 
                 <button
