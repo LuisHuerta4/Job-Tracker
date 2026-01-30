@@ -33,6 +33,7 @@ out/
 .parcel-cache/
 .eslintcache
 .stylelintcache
+.vite/
 
 # --- Logs ---
 npm-debug.log*

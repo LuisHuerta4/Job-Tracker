@@ -1,1 +1,263 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300..800&family=Inter:wght@200..900&display=swap");
+
 @import "tailwindcss";
+
+@theme {
+    /* Fonts */
+    --font-heading: "Montserrat", sans-serif;
+    --font-sans: "Inter", sans-serif;
+
+    /* Core Backgrounds */
+    --color-bg-main: #181818;
+    --color-bg-secondary: #393939;
+    --color-bg-card: #1f1f1f;
+
+    /* Borders & Dividers */
+    --color-border: #2a2a2a;
+
+    /* Text Colors */
+    --color-text-primary: #ffffff;
+    --color-text-secondary: #b4b4b4;
+    --color-text-muted: #727272;
+
+    /* Accent (minimal monochrome accent) */
+    --color-accent: #ffffff;
+
+    /* Status Colors*/
+    --color-applied: #3b82f6;
+    --color-interviewing: #facc15;
+    --color-offer: #22c55e;
+    --color-rejected: #ef4444;
+    --color-total: #8b5cf6;
+}
+
+html,
+body {
+    width: 100%;
+    background-color: var(--color-bg-main);
+    color: var(--color-text-primary);
+    font-family: var(--font-sans);
+    scroll-behavior: smooth;
+}
+
+@utility select-dark {
+    @apply bg-bg-card text-white border border-border rounded-md px-2 py-1 text-sm;
+    @apply focus:outline-none focus:border-white transition;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: linear-gradient(45deg, transparent 50%, white 50%),
+        linear-gradient(135deg, white 50%, transparent 50%);
+    background-position: calc(100% - 12px) calc(50% - 2px),
+        calc(100% - 7px) calc(50% - 2px);
+    background-size: 5px 5px, 5px 5px;
+    background-repeat: no-repeat;
+}
+
+@utility card {
+    @apply bg-bg-card border border-border rounded-xl p-5 transition;
+}
+
+@utility heading {
+    font-family: var(--font-heading);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+@utility subtle-text {
+    color: var(--color-text-secondary);
+}
+
+@utility auth-card {
+    @apply bg-bg-card border border-border p-8 w-full max-w-md rounded-xl;
+}
+
+@utility auth-input {
+    @apply w-full px-3 py-2 rounded-md outline-none transition;
+    @apply bg-transparent text-white placeholder:text-(--color-text-muted);
+    @apply border border-border focus:border-white;
+}
+
+@utility auth-button {
+    @apply w-full bg-white text-black py-2 rounded-md font-medium transition;
+    @apply hover:bg-(--color-text-secondary);
+}
+
+@utility auth-title {
+    @apply text-2xl font-semibold tracking-wide;
+    font-family: var(--font-heading);
+}
+
+@utility auth-subtitle {
+    @apply text-sm text-(--color-text-secondary);
+}
+
+@utility auth-bg {
+    @apply min-h-screen flex items-center justify-center;
+    background: linear-gradient(180deg, #181818, #393939);
+}
+
+/* Dashboard Stats */
+
+@utility stats-wrapper {
+    @apply grid grid-cols-2 md:grid-cols-5 gap-10 py-6;
+}
+
+@utility stat-circle {
+    @apply w-28 h-28 md:w-32 md:h-32 rounded-full flex flex-col items-center justify-center;
+    background-color: var(--color-bg-card);
+    border: 1px solid;
+    transition: all 0.2s ease;
+}
+
+@utility stat-value {
+    @apply text-4xl md:text-5xl font-medium text-white;
+    font-family: var(--font-heading);
+}
+
+@utility stat-label {
+    @apply text-sm tracking-wide uppercase;
+    color: var(--color-text-secondary);
+    font-family: var(--font-heading);
+}
+
+/* Dashboard Layout */
+
+@utility dashboard {
+    @apply max-w-7xl mx-auto px-6 py-10 space-y-10;
+}
+
+@utility dashboard-header {
+    @apply space-y-2;
+}
+
+@utility dashboard-title {
+    @apply text-3xl tracking-wide;
+    font-family: var(--font-heading);
+}
+
+@utility dashboard-subtitle {
+    @apply text-sm text-(--color-text-secondary);
+}
+
+@utility dashboard-controls {
+    @apply flex flex-col md:flex-row md:items-center md:justify-between gap-4;
+}
+
+@utility dashboard-content {
+    @apply mt-2;
+}
+
+/* Navbar */
+
+@utility navbar {
+    @apply flex justify-between items-center px-6 py-4 border-b border-border;
+    background: var(--color-bg-main);
+}
+
+@utility navbar-logo {
+    @apply text-lg tracking-widest;
+    font-family: var(--font-heading);
+}
+
+@utility navbar-right {
+    @apply flex items-center gap-4 text-sm;
+}
+
+@utility navbar-user {
+    @apply text-(--color-text-secondary);
+}
+
+@utility navbar-logout {
+    @apply px-3 py-1 border border-border rounded-md transition-colors;
+
+    &:hover {
+        background: var(--color-bg-secondary);
+    }
+}
+
+/* Application Cards */
+
+@utility app-status {
+    @apply text-xs uppercase tracking-wide;
+    color: var(--color-text-secondary);
+}
+
+@utility app-card {
+    @apply bg-bg-card border border-border rounded-xl p-5 space-y-3 transition;
+
+    &:hover {
+        border-color: white;
+        transform: translateY(-2px);
+    }
+}
+
+@utility app-card-header {
+    @apply flex justify-between items-center;
+}
+
+@utility app-card-company {
+    @apply text-lg font-medium tracking-wide;
+    font-family: var(--font-heading);
+}
+
+@utility app-card-role {
+    @apply text-sm text-(--color-text-secondary);
+}
+
+@utility app-card-footer {
+    @apply flex justify-between items-center pt-2 text-xs;
+}
+
+@utility app-action {
+    @apply text-(--color-text-secondary) hover:text-white transition;
+}
+
+@utility app-action-danger {
+    @apply text-(--color-text-muted) hover:text-white transition;
+}
+
+/* Status Pills */
+
+@utility status-pill {
+    @apply px-2 py-0.5 rounded-full text-xs tracking-wide border;
+}
+
+/* Table */
+
+@utility dashboard-table {
+    @apply w-full text-sm border border-border rounded-lg overflow-hidden;
+}
+
+@utility dashboard-table-row {
+    @apply border-b border-border hover:bg-bg-secondary transition;
+}
+
+/* Kanban */
+
+@utility kanban-column {
+    @apply bg-bg-card border border-border rounded-xl p-4 min-h-[420px];
+}
+
+@utility kanban-column-header {
+    @apply flex justify-between items-center pb-2 border-b border-border;
+    font-family: var(--font-heading);
+    letter-spacing: 0.05em;
+}
+
+@utility kanban-count {
+    @apply text-xs text-(--color-text-muted);
+}
+
+@utility kanban-list {
+    @apply flex flex-col gap-2 mt-2;
+}
+
+@utility kanban-card {
+    @apply bg-bg-secondary border border-border rounded-lg p-3 cursor-grab transition;
+
+    &:hover {
+        border-color: white;
+        transform: translateY(-5px);
+    }
+}

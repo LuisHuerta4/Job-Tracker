@@ -8,11 +8,13 @@ const KanbanCard = ({ app }) => {
         setNodeRef,
         transform,
         transition,
+        isDragging
     } = useSortable({ id: app._id });
 
     const style = {
         transform: CSS.Transform.toString(transform),
         transition,
+        opacity: isDragging ? 0.4 : 1,
     };
 
     return (
@@ -21,10 +23,10 @@ const KanbanCard = ({ app }) => {
             style={style}
             {...attributes}
             {...listeners}
-            className="bg-white p-3 rounded shadow-sm cursor-grab"
+            className="kanban-card"
         >
-            <h4 className="font-medium">{app.company}</h4>
-            <p className="text-sm text-gray-600">{app.role}</p>
+            <h4 className="font-medium tracking-wide">{app.company}</h4>
+            <p className="text-xs text-(--color-text-secondary)">{app.role}</p>
         </div>
     );
 };

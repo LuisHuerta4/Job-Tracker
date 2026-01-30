@@ -1,13 +1,59 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { loginUser } from "../api/auth.api";
 import { AuthContext } from "../context/AuthContext";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
 
 const Login = () => {
     const [form, setForm] = useState({ email: "", password: "" });
     const [error, setError] = useState("");
     const { login } = useContext(AuthContext);
     const navigate = useNavigate();
+    const containerRef = useRef(null);
+
+    useGSAP(() => {
+        const tl = gsap.timeline({ delay: 0.2 });
+
+        tl.from(".auth-card", {
+            scale: 0.9,
+            opacity: 0,
+            duration: 0.8,
+            ease: "power3.out",
+        });
+
+        tl.from(".auth-title, .auth-subtitle", {
+            y: 30,
+            opacity: 0,
+            duration: 0.6,
+            stagger: 0.1,
+            ease: "power3.inOut",
+        }, "-=0.4");
+
+        tl.fromTo(
+            ".auth-input",
+            { y: 20, opacity: 0 },
+            {
+                y: 0,
+                opacity: 1,
+                duration: 0.6,
+                stagger: 0.08,
+                ease: "back.out(1.7)",
+            }
+        );
+
+        tl.fromTo(
+            ".auth-button",
+            { scale: 0.9, opacity: 0 },
+            {
+                scale: 1,
+                opacity: 1,
+                duration: 0.4,
+                ease: "back.out(1.7)",
+            },
+            "-=0.2"
+        );
+    }, { scope: containerRef });
 
     const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
@@ -25,40 +71,54 @@ const Login = () => {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center">
-            <form
-                onSubmit={handleSubmit}
-                className="w-96 p-6 border rounded space-y-4"
-            >
-                <h1 className="text-xl font-semibold">Login</h1>
+        <div ref={containerRef} className="auth-bg">
 
-                {error && <p className="text-red-500">{error}</p>}
+            <div className="auth-card space-y-6">
 
-                <input
-                    name="email"
-                    placeholder="Email"
-                    onChange={handleChange}
-                    className="w-full border p-2"
-                    autoComplete="off"
-                />
+                <div className="space-y-1 text-center">
+                    <h1 className="auth-title">Log In</h1>
+                    <p className="auth-subtitle">
+                        Log in to manage your job applications
+                    </p>
+                </div>
 
-                <input
-                    name="password"
-                    type="password"
-                    placeholder="Password"
-                    onChange={handleChange}
-                    className="w-full border p-2"
-                    autoComplete="off"
-                />
+                {error && (
+                    <p className="text-sm text-red-500 bg-red-500/10 border border-red-500/20 p-2 rounded-lg">
+                        {error}
+                    </p>
+                )}
 
-                <button className="w-full bg-black text-white p-2">
-                    Login
-                </button>
+                <form onSubmit={handleSubmit} className="space-y-4">
+                    <input
+                        name="email"
+                        type="email"
+                        placeholder="Email"
+                        onChange={handleChange}
+                        className="auth-input"
+                        required
+                    />
 
-                <p className="text-sm">
-                    No account? <Link to="/register" className="underline">Register</Link>
+                    <input
+                        name="password"
+                        type="password"
+                        placeholder="Password"
+                        onChange={handleChange}
+                        className="auth-input"
+                        required
+                    />
+
+                    <button className="auth-button">
+                        Login
+                    </button>
+                </form>
+
+                <p className="text-sm text-center text-white/70">
+                    No account?{" "}
+                    <Link to="/register" className="text-white font-medium hover:underline">
+                        Register
+                    </Link>
                 </p>
-            </form>
+            </div>
         </div>
     );
 };
