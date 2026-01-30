@@ -21,41 +21,59 @@ const ApplicationForm = ({ onAdd }) => {
     };
 
     return (
-        <form
-            onSubmit={handleSubmit}
-            className="border p-4 rounded space-y-3"
-        >
-            <h2 className="font-semibold">Add Application</h2>
+        <form onSubmit={handleSubmit} className="space-y-5">
+            <h2 className="text-xl font-semibold tracking-wide heading">
+                Create Application
+            </h2>
 
-            <input
-                name="company"
-                placeholder="Company"
-                onChange={handleChange}
-                value={form.company}
-                className="w-full border p-2"
-                autoComplete="off"
-            />
+            <div className="space-y-3">
+                <input
+                    name="company"
+                    placeholder="Company"
+                    onChange={handleChange}
+                    value={form.company}
+                    className="auth-input"
+                    autoComplete="off"
+                />
 
-            <input
-                name="role"
-                placeholder="Role"
-                onChange={handleChange}
-                value={form.role}
-                className="w-full border p-2"
-                autoComplete="off"
-            />
+                <input
+                    name="role"
+                    placeholder="Role"
+                    onChange={handleChange}
+                    value={form.role}
+                    className="auth-input"
+                    autoComplete="off"
+                />
 
-            <input
-                type="date"
-                name="followUpDate"
-                onChange={handleChange}
-                value={form.followUpDate}
-                className="w-full border p-2"
-                autoComplete="off"
-            />
+                <select
+                    name="status"
+                    value={form.status}
+                    onChange={handleChange}
+                    className="select-dark w-full"
+                >
+                    <option>Applied</option>
+                    <option>Interviewing</option>
+                    <option>Offer</option>
+                    <option>Rejected</option>
+                </select>
 
-            <button className="bg-black text-white px-4 py-2">
-                Add
+                <div className="space-y-1">
+                    <label className="text-xs tracking-wide uppercase subtle-text">
+                        Follow Up Date
+                    </label>
+                    <input
+                        type="date"
+                        name="followUpDate"
+                        onChange={handleChange}
+                        value={form.followUpDate}
+                        className="auth-input"
+                    />
+                </div>
+
+            </div>
+
+            <button className="auth-button cursor-pointer hover:-translate-y-0.5">
+                Add Application
             </button>
         </form>
     );
