@@ -22,6 +22,7 @@ const CardView = ({ applications, onChange }) => {
                 <ApplicationDetailsModal
                     app={selectedApp}
                     onClose={() => setSelectedApp(null)}
+                    onChange={onChange}
                 />
             )}
         </>

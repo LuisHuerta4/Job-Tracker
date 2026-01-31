@@ -1,16 +1,7 @@
-import { useState } from "react";
-import { updateApplication, deleteApplication } from "../api/applications.api";
-import { STATUSES, statusColors } from "../../constants/statuses";
+import { deleteApplication } from "../api/applications.api";
+import { statusColors } from "../../constants/statuses";
 
 const ApplicationCard = ({ app, onChange, onView }) => {
-    const [status, setStatus] = useState(app.status);
-    const [editing, setEditing] = useState(false);
-
-    const handleUpdate = async () => {
-        await updateApplication(app._id, { status });
-        setEditing(false);
-        onChange();
-    };
 
     const handleDelete = async () => {
         if (!window.confirm("Delete this application?")) return;
@@ -31,42 +22,11 @@ const ApplicationCard = ({ app, onChange, onView }) => {
             <p className="app-card-role">{app.role}</p>
 
             <div className="app-card-footer">
-                {editing ? (
-                    <div className="flex gap-2">
-                        <select
-                            value={status}
-                            onChange={(e) => setStatus(e.target.value)}
-                            className="select-dark"
-                        >
-                            {STATUSES.map((s) => (
-                                <option key={s} value={s}>
-                                    {s}
-                                </option>
-                            ))}
-                        </select>
-                        <button onClick={handleUpdate} className="app-action">
-                            Save
-                        </button>
-                    </div>
-                ) : (
-                    <>
-                        <button
-                            onClick={() => setEditing(true)}
-                            className="app-action"
-                        >
-                            Edit
-                        </button>
+                <button onClick={onView} className="app-action">
+                    View
+                </button>
 
-                        <button onClick={onView} className="app-action">
-                            View
-                        </button>
-                    </>
-                )}
-
-                <button
-                    onClick={handleDelete}
-                    className="app-action-danger"
-                >
+                <button onClick={handleDelete} className="app-action-danger">
                     Delete
                 </button>
             </div>

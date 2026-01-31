@@ -121,7 +121,7 @@ const Applications = () => {
                         )}
 
                         {view === "table" && (
-                            <TableView applications={filteredApps} onStatusChange={updateStatus} />
+                            <TableView applications={filteredApps} />
                         )}
 
                         {view === "kanban" && (
