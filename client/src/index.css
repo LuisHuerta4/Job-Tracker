@@ -79,8 +79,7 @@ body {
 }
 
 @utility auth-button {
-    @apply w-full bg-white text-black py-2 rounded-md font-medium transition;
-    @apply hover:bg-(--color-text-secondary);
+    @apply w-full px-4 py-2 rounded-md bg-white text-black text-sm font-medium transition hover:bg-gray-300 cursor-pointer hover:-translate-y-0.5
 }
 
 @utility auth-title {
@@ -210,11 +209,11 @@ body {
 }
 
 @utility app-action {
-    @apply text-(--color-text-secondary) hover:text-white transition;
+    @apply text-(--color-text-secondary) hover:text-white transition cursor-pointer;
 }
 
 @utility app-action-danger {
-    @apply text-(--color-text-muted) hover:text-white transition;
+    @apply text-(--color-text-muted) hover:text-white transition cursor-pointer;
 }
 
 /* Status Pills */

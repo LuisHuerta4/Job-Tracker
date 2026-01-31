@@ -100,7 +100,7 @@ const Applications = () => {
 
                     <button
                         onClick={() => setShowForm(true)}
-                        className="px-4 py-2 rounded-md bg-white text-black text-sm font-medium transition hover:bg-gray-300 cursor-pointer hover:-translate-y-0.5"
+                        className="auth-button"
                     >
                         + New Application
                     </button>
@@ -144,7 +144,7 @@ const Applications = () => {
                     >
                         <button
                             onClick={() => setShowForm(false)}
-                            className="absolute top-3 right-3 text-gray-400 hover:text-white transition"
+                            className="absolute top-3 right-5 text-(--color-text-secondary) hover:text-white transition cursor-pointer"
                         >
                             ✕
                         </button>

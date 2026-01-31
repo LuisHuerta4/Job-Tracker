@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { updateApplication } from "../api/applications.api";
 import { STATUSES } from "../../constants/statuses";
+import { statusColors } from "../../constants/statuses";
 
 const ApplicationDetailsModal = ({ app, onClose, onChange }) => {
     const modalRef = useRef(null);
@@ -26,10 +27,14 @@ const ApplicationDetailsModal = ({ app, onClose, onChange }) => {
             { opacity: 1, duration: 0.2 }
         );
 
-        gsap.fromTo(
+        gsap.to(
             modalRef.current,
-            { opacity: 0, y: 30, scale: 0.97 },
-            { opacity: 1, y: 0, scale: 1, duration: 0.25 }
+            {
+                opacity: 1,
+                scale: 1,
+                duration: 0.5,
+                ease: "power3.out",
+            }
         );
     }, []);
 
@@ -68,7 +73,7 @@ const ApplicationDetailsModal = ({ app, onClose, onChange }) => {
             <div
                 ref={modalRef}
                 onMouseDown={(e) => e.stopPropagation()}
-                className="card w-full max-w-lg space-y-5"
+                className="card w-full max-w-lg relative scale-[0.5] transition-transform duration-200"
             >
 
                 <div className="flex justify-between items-start">
@@ -107,7 +112,7 @@ const ApplicationDetailsModal = ({ app, onClose, onChange }) => {
 
                     <button
                         onClick={handleClose}
-                        className="text-(--color-text-secondary) hover:text-white"
+                        className="text-(--color-text-secondary) hover:text-white cursor-pointer"
                     >
                         ✕
                     </button>
@@ -115,7 +120,7 @@ const ApplicationDetailsModal = ({ app, onClose, onChange }) => {
 
                 <div className="space-y-4 text-sm">
                     <div>
-                        <p className="text-xs uppercase subtle-text mb-1">
+                        <p className="text-xs uppercase subtle-text mt-4 mb-1">
                             Status
                         </p>
                         {editing ? (
@@ -132,7 +137,7 @@ const ApplicationDetailsModal = ({ app, onClose, onChange }) => {
                                 ))}
                             </select>
                         ) : (
-                            <p>{app.status}</p>
+                            <p className={`${statusColors[app.status]} pointer-events-none`}>{app.status}</p>
                         )}
                     </div>
 
@@ -148,6 +153,7 @@ const ApplicationDetailsModal = ({ app, onClose, onChange }) => {
                                 onChange={handleChange}
                                 className="auth-input"
                                 placeholder="https://..."
+                                autoComplete="off"
                             />
                         ) : app.jobLink ? (
                             <a
