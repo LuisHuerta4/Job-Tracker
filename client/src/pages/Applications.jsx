@@ -6,12 +6,37 @@ import ViewTabs from "../views/ViewTabs";
 import CardView from "../views/CardView";
 import TableView from "../views/TableView";
 import KanbanView from "../views/KanbanView";
+import gsap from "gsap";
+import { useRef } from "react";
 
 const Applications = () => {
     const [view, setView] = useState("cards");
     const [apps, setApps] = useState([]);
     const [loading, setLoading] = useState(true);
     const [filter, setFilter] = useState("All");
+    const [showForm, setShowForm] = useState(false);
+    const modalRef = useRef(null);
+    const overlayRef = useRef(null);
+
+    useEffect(() => {
+        if (showForm) {
+            gsap.fromTo(
+                overlayRef.current,
+                { opacity: 0 },
+                { opacity: 1, duration: 0.2 }
+            );
+
+            gsap.to(
+                modalRef.current,
+                {
+                    opacity: 1,
+                    scale: 1,
+                    duration: 0.5,
+                    ease: "power3.out",
+                }
+            );
+        }
+    }, [showForm]);
 
     const filteredApps =
         filter === "All"
@@ -60,17 +85,26 @@ const Applications = () => {
             <div className="dashboard-controls">
                 <ViewTabs view={view} setView={setView} />
 
-                <select
-                    value={filter}
-                    onChange={(e) => setFilter(e.target.value)}
-                    className="select-dark"
-                >
-                    <option>All</option>
-                    <option>Applied</option>
-                    <option>Interviewing</option>
-                    <option>Offer</option>
-                    <option>Rejected</option>
-                </select>
+                <div className="flex gap-3 items-center">
+                    <select
+                        value={filter}
+                        onChange={(e) => setFilter(e.target.value)}
+                        className="select-dark"
+                    >
+                        <option>All</option>
+                        <option>Applied</option>
+                        <option>Interviewing</option>
+                        <option>Offer</option>
+                        <option>Rejected</option>
+                    </select>
+
+                    <button
+                        onClick={() => setShowForm(true)}
+                        className="auth-button"
+                    >
+                        + New Application
+                    </button>
+                </div>
             </div>
 
             <div className="dashboard-content">
@@ -87,7 +121,7 @@ const Applications = () => {
                         )}
 
                         {view === "table" && (
-                            <TableView applications={filteredApps} onStatusChange={updateStatus} />
+                            <TableView applications={filteredApps} />
                         )}
 
                         {view === "kanban" && (
@@ -96,6 +130,34 @@ const Applications = () => {
                     </>
                 )}
             </div>
+
+            {showForm && (
+                <div
+                    ref={overlayRef}
+                    className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm"
+                    onClick={() => setShowForm(false)}
+                >
+                    <div
+                        ref={modalRef}
+                        onClick={(e) => e.stopPropagation()}
+                        className="card w-full max-w-lg relative scale-[0.5] transition-transform duration-200"
+                    >
+                        <button
+                            onClick={() => setShowForm(false)}
+                            className="absolute top-3 right-5 text-(--color-text-secondary) hover:text-white transition cursor-pointer"
+                        >
+                            ✕
+                        </button>
+
+                        <ApplicationForm
+                            onAdd={() => {
+                                loadApplications();
+                                setShowForm(false);
+                            }}
+                        />
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
