@@ -93,8 +93,16 @@ body {
 
 @utility auth-bg {
     @apply min-h-screen flex items-center justify-center;
-    background: linear-gradient(180deg, #181818, #393939);
+    background-image:
+        linear-gradient(rgba(20, 20, 20, 0.3),
+            rgba(20, 20, 20, 0.3)),
+        url("/auth-bg.png");
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
+
 
 /* Dashboard Stats */
 
