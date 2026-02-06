@@ -2,9 +2,17 @@ const User = require("../models/User");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-const generateToken = (userId) => {
-    return jwt.sign({ userId }, process.env.JWT_SECRET, {
-        expiresIn: "7d",
+const TOKEN_TTL = 7 * 24 * 60 * 60 * 1000;
+
+const generateToken = (userId) =>
+    jwt.sign({ userId }, process.env.JWT_SECRET, { expiresIn: "7d" });
+
+const setAuthCookie = (res, token) => {
+    res.cookie("token", token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: process.env.NODE_ENV === "production" ? "strict" : "lax",
+        maxAge: TOKEN_TTL,
     });
 };
 
@@ -28,9 +36,9 @@ exports.register = async (req, res) => {
             password: hashedPassword,
         });
 
-        res.status(201).json({
-            token: generateToken(user._id),
-        });
+        const token = generateToken(user._id);
+        setAuthCookie(res, token);
+        res.status(201).json({ message: "Registered" });
     } catch (error) {
         res.status(500).json({ message: "Server error" });
     }
@@ -50,10 +58,19 @@ exports.login = async (req, res) => {
             return res.status(400).json({ message: "Invalid credentials" });
         }
 
-        res.json({
-            token: generateToken(user._id),
-        });
+        const token = generateToken(user._id);
+        setAuthCookie(res, token);
+        res.json({ message: "Logged in" });
     } catch (error) {
         res.status(500).json({ message: "Server error" });
     }
+};
+
+exports.logout = (req, res) => {
+    res.clearCookie("token", {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: process.env.NODE_ENV === "production" ? "strict" : "lax",
+    });
+    res.json({ message: "Logged out" });
 };
