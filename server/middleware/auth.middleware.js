@@ -18,7 +18,22 @@ const protect = async (req, res, next) => {
             const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
             req.user = await User.findById(decoded.userId).select("-password");
-            
+            if (!req.user) {
+                return res.status(401).json({ message: "Not authorized" });
+            }
+
+            next();
+        } catch (error) {
+            res.status(401).json({ message: "Not authorized" });
+        }
+    } else if (req.cookies?.token) {
+        try {
+            token = req.cookies.token;
+            const decoded = jwt.verify(token, process.env.JWT_SECRET);
+            req.user = await User.findById(decoded.userId).select("-password");
+            if (!req.user) {
+                return res.status(401).json({ message: "Not authorized" });
+            }
             next();
         } catch (error) {
             res.status(401).json({ message: "Not authorized" });
