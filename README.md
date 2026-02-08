@@ -45,6 +45,9 @@ The application is built with a React + Vite frontend and a Node.js + Express + 
 ### Login
 <img src="client\public\Login.png" width="auto" height="500">
 
+### Create, View, Edit
+<img src="client\public\Create-view-edit.png" width="auto" height="500">
+
 ### Cards
 <img src="client\public\Dashboard-card.png" width="auto" height="500">
 
