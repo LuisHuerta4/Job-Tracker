@@ -40,6 +40,22 @@ The application is built with a React + Vite frontend and a Node.js + Express + 
 
 ---
 
+## Screens
+
+### Login
+<img src="client\public\Login.png" width="auto" height="500">
+
+### Cards
+<img src="client\public\Dashboard-card.png" width="auto" height="500">
+
+### Table
+<img src="client\public\Dashboard-table.png" width="auto" height="500">
+
+### Kanban
+<img src="client\public\Dashboard-kanban.png" width="auto" height="500">
+
+---
+
 ## Tech Stack
 
 ### Frontend
