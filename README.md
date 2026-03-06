@@ -13,30 +13,125 @@
 ![DndKit](https://img.shields.io/badge/Dnd--Kit-20232A?style=for-the-badge&logo=draganddrop)
 ![Nodemailer](https://img.shields.io/badge/Nodemailer-20232A?style=for-the-badge&logo=gmail)
 
-A full-stack web application that helps users manage and track job applications in one place. Users can create, edit, and delete applications, view them in multiple formats, and organize progress through a Kanban-style workflow.
-
-The application is built with a React + Vite frontend and a Node.js + Express + MongoDB backend with secure authentication.
+A full-stack job application tracking platform built with a **React + Vite** frontend and a **Node.js + Express + MongoDB** backend. Helps users organize their entire job search in one place — create, edit, and track applications across a Kanban board, card grid, or table, with automated email reminders for follow-up dates.
 
 ---
 
 ## Features
 
-- User authentication (register, login, logout)
-- JWT-based authentication stored in HttpOnly cookies
-- Create, edit, and delete job applications
-- Track applications by status:
-  - Applied
-  - Interviewing
-  - Offer
-  - Rejected
-- Dashboard statistics summary
-- Multiple dashboard views:
-  - Card view
-  - Table view
-  - Kanban board view with drag-and-drop support
-- View and edit full application details in a modal
-- Support for follow-up dates, notes, and job links
-- Daily email reminder system for follow-up dates
+### Authentication
+- Secure registration and login with **bcrypt** password hashing
+- **JWT** tokens stored in **HttpOnly cookies** — inaccessible to JavaScript, protecting against XSS attacks
+- Protected API routes enforced by Express middleware with resource-level ownership checks
+- Rate limiting on auth endpoints (20 requests / 15 min) to prevent brute-force attacks
+
+### Application Management
+- Full **CRUD** for job applications — create, view, edit, and delete
+- Track applications across 4 statuses: **Applied**, **Interviewing**, **Offer**, **Rejected**
+- Store follow-up dates, notes, and direct job posting links per application
+
+### Dashboard Views
+- **Card View** — responsive grid layout with status-colored pills and quick actions
+- **Table View** — compact tabular layout for scanning many applications at once
+- **Kanban View** — drag-and-drop board with **optimistic UI updates** (status reflects instantly before the server responds)
+- Live status filter to narrow any view down to a specific stage
+
+### Automated Reminders
+- Daily **cron job** checks for applications with due follow-up dates
+- Sends personalized reminder emails via **Nodemailer** + Gmail SMTP
+- `reminderSent` flag in MongoDB guarantees exactly-once delivery per application
+
+### UI & Experience
+- **GSAP** timeline animations on auth pages and modal open/close transitions
+- Fully responsive layout across mobile and desktop
+- Animated details modal with view and edit modes for every application field
+
+---
+
+## Tech Stack
+
+### Frontend
+| Technology | Purpose |
+|---|---|
+| React 19 + Vite | SPA framework and dev/build tooling |
+| React Router DOM 7 | Client-side routing and route guards |
+| Tailwind CSS 4 | Utility-first styling |
+| Axios | HTTP client with automatic cookie handling |
+| GSAP + @gsap/react | Entrance and transition animations |
+| @dnd-kit | Accessible drag-and-drop for the Kanban board |
+
+### Backend
+| Technology | Purpose |
+|---|---|
+| Node.js + Express 5 | REST API server |
+| MongoDB + Mongoose | Database and ODM |
+| jsonwebtoken + bcrypt | JWT signing and password hashing |
+| Helmet + CORS + express-rate-limit | Security hardening |
+| cookie-parser | HttpOnly cookie handling |
+| node-cron | Scheduled daily reminder job |
+| Nodemailer | Transactional email via Gmail SMTP |
+
+---
+
+## Getting Started
+
+### Prerequisites
+- Node.js 18+
+- A [MongoDB Atlas](https://www.mongodb.com/atlas) cluster (or local MongoDB instance)
+- A Gmail account with an [App Password](https://support.google.com/accounts/answer/185833) enabled
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/LuisHuerta4/Job-Tracker.git
+cd Job-Tracker
+```
+
+### 2. Configure the backend
+
+```bash
+cd server
+npm install
+```
+
+Create a `.env` file in the `server/` directory:
+
+```env
+MONGO_URI=your_mongodb_connection_string
+JWT_SECRET=your_strong_random_secret
+EMAIL_USER=your_gmail_address@gmail.com
+EMAIL_PASS=your_gmail_app_password
+CORS_ORIGIN=http://localhost:5173
+PORT=5000
+NODE_ENV=development
+```
+
+Start the backend:
+
+```bash
+npm run dev
+```
+
+### 3. Configure the frontend
+
+```bash
+cd ../client
+npm install
+```
+
+Create a `.env` file in the `client/` directory:
+
+```env
+VITE_API_URL=http://localhost:5000/api
+```
+
+Start the frontend:
+
+```bash
+npm run dev
+```
+
+The app will be available at `http://localhost:5173`.
 
 ---
 
@@ -56,40 +151,3 @@ The application is built with a React + Vite frontend and a Node.js + Express + 
 
 ### Kanban
 <img src="client\public\Dashboard-kanban.png" width="auto" height="500">
-
----
-
-## Tech Stack
-
-### Frontend
-- React (Vite)
-- React Router
-- Tailwind CSS
-- GSAP
-- Axios
-- Dnd-Kit
-
-### Backend
-- Node.js
-- Express
-- MongoDB
-- Mongoose
-- JSON Web Tokens (JWT)
-- bcrypt
-- cookie-parser
-- helmet
-- express-rate-limit
-- nodemailer
-- node-cron
-
----
-
-## Authentication
-
-Authentication is handled using JWT tokens stored in HttpOnly cookies for improved security. Protected routes are enforced through backend middleware and frontend route guards.
-
----
-
-## Reminder System
-
-A scheduled cron job runs daily to check applications with follow-up dates and sends reminder emails. Applications are marked after reminders are sent to prevent duplicate notifications.
