@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
 import { statusColors } from "../../constants/statuses";
 import ApplicationDetailsModal from "../components/ApplicationDetailsModal";
 
@@ -21,12 +23,21 @@ const TableRow = ({ app, onView }) => {
     );
 };
 
-
 const TableView = ({ applications }) => {
     const [selectedApp, setSelectedApp] = useState(null);
+    const tableRef = useRef(null);
+
+    useGSAP(() => {
+        const rows = tableRef.current?.querySelectorAll(".dashboard-table-row");
+        if (!rows?.length) return;
+        gsap.fromTo(rows,
+            { x: -20, opacity: 0 },
+            { x: 0, opacity: 1, duration: 0.1, stagger: 0.04, ease: "power2.out" }
+        );
+    }, { scope: tableRef, dependencies: [applications.length] });
 
     return (
-        <div className="overflow-x-auto">
+        <div ref={tableRef} className="overflow-x-auto">
             <table className="dashboard-table">
                 <thead>
                     <tr className="border-b">
