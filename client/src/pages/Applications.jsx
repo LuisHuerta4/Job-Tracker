@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { getApplications, updateApplication } from "../api/applications.api";
 import ApplicationForm from "../components/ApplicationForm";
 import Stats from "../components/Stats";
@@ -6,8 +6,8 @@ import ViewTabs from "../views/ViewTabs";
 import CardView from "../views/CardView";
 import TableView from "../views/TableView";
 import KanbanView from "../views/KanbanView";
+import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { useRef } from "react";
 
 const Applications = () => {
     const [view, setView] = useState("cards");
@@ -17,6 +17,23 @@ const Applications = () => {
     const [showForm, setShowForm] = useState(false);
     const modalRef = useRef(null);
     const overlayRef = useRef(null);
+    const dashboardRef = useRef(null);
+
+    useGSAP(() => {
+        gsap.from(".dashboard-header", {
+            y: -20,
+            opacity: 0,
+            duration: 0.9,
+            ease: "power3.out",
+        });
+        gsap.from(".dashboard-controls", {
+            y: 20,
+            opacity: 0,
+            duration: 0.7,
+            delay: 0.2,
+            ease: "power3.out",
+        });
+    }, { scope: dashboardRef });
 
     useEffect(() => {
         if (showForm) {
@@ -71,7 +88,7 @@ const Applications = () => {
     }, []);
 
     return (
-        <div className="dashboard">
+        <div ref={dashboardRef} className="dashboard">
 
             <div className="dashboard-header">
                 <h1 className="dashboard-title">Dashboard</h1>
