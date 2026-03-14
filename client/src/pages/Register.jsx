@@ -114,10 +114,12 @@ const Register = () => {
                     <input
                         name="password"
                         type="password"
-                        placeholder="Password"
+                        placeholder="Password (min 8 characters)"
                         onChange={handleChange}
                         className="auth-input"
                         required
+                        minLength={8}
+                        maxLength={128}
                     />
 
                     <button className="auth-button">
