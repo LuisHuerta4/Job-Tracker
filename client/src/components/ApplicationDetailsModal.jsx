@@ -155,7 +155,16 @@ const ApplicationDetailsModal = ({ app, onClose, onChange }) => {
                                 placeholder="https://..."
                                 autoComplete="off"
                             />
-                        ) : app.jobLink ? (
+                        ) : app.jobLink &&
+                          (() => {
+                              try {
+                                  return ["http:", "https:"].includes(
+                                      new URL(app.jobLink).protocol
+                                  );
+                              } catch {
+                                  return false;
+                              }
+                          })() ? (
                             <a
                                 href={app.jobLink}
                                 target="_blank"
@@ -164,6 +173,10 @@ const ApplicationDetailsModal = ({ app, onClose, onChange }) => {
                             >
                                 {app.jobLink}
                             </a>
+                        ) : app.jobLink ? (
+                            <p className="text-(--color-text-secondary) break-all">
+                                {app.jobLink}
+                            </p>
                         ) : (
                             <p className="text-(--color-text-secondary)">—</p>
                         )}
