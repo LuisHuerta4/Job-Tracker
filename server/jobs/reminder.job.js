@@ -2,6 +2,9 @@ const cron = require("node-cron");
 const Application = require("../models/Application");
 const transporter = require("../config/mailer");
 
+const sanitizeForEmail = (str) =>
+    String(str).replace(/[\r\n]/g, "").substring(0, 100);
+
 const sendReminders = async () => {
     try {
         const today = new Date();
@@ -13,11 +16,14 @@ const sendReminders = async () => {
         }).populate("user");
 
         for (const app of applications) {
+            const company = sanitizeForEmail(app.company);
+            const role = sanitizeForEmail(app.role);
+
             await transporter.sendMail({
                 from: process.env.EMAIL_USER,
                 to: app.user.email,
-                subject: `Follow-up Reminder: ${app.company}`,
-                text: `Reminder to follow up on your ${app.role} application at ${app.company}.`,
+                subject: `Follow-up Reminder: ${company}`,
+                text: `Reminder to follow up on your ${role} application at ${company}.`,
             });
 
             app.reminderSent = true;

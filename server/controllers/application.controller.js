@@ -1,10 +1,18 @@
 const Application = require("../models/Application");
+const { createApplicationSchema, updateApplicationSchema } = require("../validators/application.validator");
 
 exports.createApplication = async (req, res) => {
     try {
+        const { error, value } = createApplicationSchema.validate(req.body);
+        if (error) {
+            return res
+                .status(400)
+                .json({ message: error.details[0].message });
+        }
+
         const application = await Application.create({
-            user: req.user._id, // auth middleware
-            ...req.body,
+            user: req.user._id,
+            ...value,
         });
 
         res.status(201).json(application);
@@ -27,21 +35,27 @@ exports.getApplications = async (req, res) => {
 
 exports.updateApplication = async (req, res) => {
     try {
+        const { error, value } = updateApplicationSchema.validate(req.body);
+        if (error) {
+            return res
+                .status(400)
+                .json({ message: error.details[0].message });
+        }
+
         const application = await Application.findById(req.params.id);
 
         if (!application) {
             return res.status(404).json({ message: "Application not found" });
         }
 
-        // Auth check
         if (application.user.toString() !== req.user._id.toString()) {
-            return res.status(401).json({ message: "Not authorized" });
+            return res.status(403).json({ message: "Not authorized" });
         }
 
         const updatedApplication = await Application.findByIdAndUpdate(
             req.params.id,
-            req.body,
-            { new: true }
+            value,
+            { new: true, runValidators: true }
         );
 
         res.json(updatedApplication);
@@ -59,7 +73,7 @@ exports.deleteApplication = async (req, res) => {
         }
 
         if (application.user.toString() !== req.user._id.toString()) {
-            return res.status(401).json({ message: "Not authorized" });
+            return res.status(403).json({ message: "Not authorized" });
         }
 
         await application.deleteOne();

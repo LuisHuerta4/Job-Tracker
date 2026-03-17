@@ -1,6 +1,7 @@
 const User = require("../models/User");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const { registerSchema, loginSchema } = require("../validators/auth.validator");
 
 const TOKEN_TTL = 7 * 24 * 60 * 60 * 1000;
 
@@ -12,22 +13,20 @@ const setAuthCookie = (res, token) => {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
         sameSite: process.env.NODE_ENV === "production" ? "strict" : "lax",
-
-        // If frontend and beackend are on different domains:
-        // sameSite: "none",
-        // secure: true,
-
         maxAge: TOKEN_TTL,
     });
 };
 
 exports.register = async (req, res) => {
     try {
-        const { email, password } = req.body;
-
-        if (!email || !password) {
-            return res.status(400).json({ message: "All fields are required" });
+        const { error, value } = registerSchema.validate(req.body);
+        if (error) {
+            return res
+                .status(400)
+                .json({ message: error.details[0].message });
         }
+
+        const { email, password } = value;
 
         const existingUser = await User.findOne({ email });
         if (existingUser) {
@@ -51,7 +50,14 @@ exports.register = async (req, res) => {
 
 exports.login = async (req, res) => {
     try {
-        const { email, password } = req.body;
+        const { error, value } = loginSchema.validate(req.body);
+        if (error) {
+            return res
+                .status(400)
+                .json({ message: error.details[0].message });
+        }
+
+        const { email, password } = value;
 
         const user = await User.findOne({ email });
         if (!user) {
