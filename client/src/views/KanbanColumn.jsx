@@ -22,7 +22,7 @@ const KanbanColumn = ({ status, applications }) => {
             >
                 <div className="kanban-list">
                     {applications.map(app => (
-                        <KanbanCard key={app._id} app={app} />
+                        <KanbanCard key={app._id} app={app} status={status} />
                     ))}
                 </div>
             </SortableContext>

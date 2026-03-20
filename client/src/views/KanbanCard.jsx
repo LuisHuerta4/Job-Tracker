@@ -1,7 +1,7 @@
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 
-const KanbanCard = ({ app }) => {
+const KanbanCard = ({ app, status }) => {
     const {
         attributes,
         listeners,
@@ -9,7 +9,7 @@ const KanbanCard = ({ app }) => {
         transform,
         transition,
         isDragging
-    } = useSortable({ id: app._id });
+    } = useSortable({ id: app._id, data: { status } });
 
     const style = {
         transform: CSS.Transform.toString(transform),
