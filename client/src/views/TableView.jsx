@@ -37,7 +37,7 @@ const TableView = ({ applications }) => {
     }, { scope: tableRef, dependencies: [applications.length] });
 
     return (
-        <div ref={tableRef} className="overflow-x-auto">
+        <div ref={tableRef} className="overflow-x-auto styled-scroll max-h-[70vh]">
             <table className="dashboard-table">
                 <thead>
                     <tr className="border-b">

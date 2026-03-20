@@ -243,7 +243,7 @@ body {
 /* Kanban */
 
 @utility kanban-column {
-    @apply bg-bg-card border border-border rounded-xl p-4 min-h-[420px];
+    @apply bg-bg-card border border-border rounded-xl p-4 min-h-[420px] flex flex-col;
 }
 
 @utility kanban-column-header {
@@ -256,8 +256,31 @@ body {
     @apply text-xs text-(--color-text-muted);
 }
 
+@utility styled-scroll {
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-bg-secondary) transparent;
+
+    &::-webkit-scrollbar {
+        width: 4px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: var(--color-bg-secondary);
+        border-radius: 9999px;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+        background: var(--color-text-muted);
+    }
+}
+
 @utility kanban-list {
-    @apply flex flex-col gap-2 mt-2;
+    @apply flex flex-col gap-2 mt-2 styled-scroll max-h-[60vh];
 }
 
 @utility kanban-card {
