@@ -6,8 +6,8 @@ const createApplicationSchema = Joi.object({
     status: Joi.string()
         .valid("Applied", "Interviewing", "Offer", "Rejected")
         .default("Applied"),
-    appliedDate: Joi.date().optional(),
-    followUpDate: Joi.date().optional().allow(null),
+    appliedDate: Joi.date().optional().allow("", null),
+    followUpDate: Joi.date().optional().allow("", null),
     notes: Joi.string().trim().max(5000).optional().allow(""),
     jobLink: Joi.string().uri().max(2048).optional().allow(""),
 });
@@ -16,8 +16,8 @@ const updateApplicationSchema = Joi.object({
     company: Joi.string().trim().min(1).max(255),
     role: Joi.string().trim().min(1).max(255),
     status: Joi.string().valid("Applied", "Interviewing", "Offer", "Rejected"),
-    appliedDate: Joi.date(),
-    followUpDate: Joi.date().allow(null),
+    appliedDate: Joi.date().allow("", null),
+    followUpDate: Joi.date().allow("", null),
     notes: Joi.string().trim().max(5000).allow(""),
     jobLink: Joi.string().uri().max(2048).allow(""),
 })
