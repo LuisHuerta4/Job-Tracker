@@ -6,6 +6,9 @@ const rateLimit = require("express-rate-limit");
 
 const app = express();
 
+// Trust the first proxy (Render, etc.) so rate limiting and HTTPS redirect work correctly
+app.set("trust proxy", 1);
+
 // HTTPS redirect in production (only behind a reverse proxy)
 if (process.env.NODE_ENV === "production") {
     app.use((req, res, next) => {
