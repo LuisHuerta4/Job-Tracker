@@ -23,7 +23,7 @@ const TableRow = ({ app, onView }) => {
     );
 };
 
-const TableView = ({ applications }) => {
+const TableView = ({ applications, onChange }) => {
     const [selectedApp, setSelectedApp] = useState(null);
     const tableRef = useRef(null);
 
@@ -61,6 +61,7 @@ const TableView = ({ applications }) => {
                 <ApplicationDetailsModal
                     app={selectedApp}
                     onClose={() => setSelectedApp(null)}
+                    onChange={onChange}
                 />
             )}
         </div>
