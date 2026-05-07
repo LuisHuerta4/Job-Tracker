@@ -91,18 +91,10 @@ body {
     @apply text-sm text-(--color-text-secondary);
 }
 
-@utility auth-bg {
-    @apply min-h-screen flex items-center justify-center;
-    background-image:
-        linear-gradient(rgba(20, 20, 20, 0.3),
-            rgba(20, 20, 20, 0.3)),
-        url("/auth-bg.png");
-
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+@utility text-outline {
+    -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.4);
+    color: transparent;
 }
-
 
 /* Dashboard Stats */
 

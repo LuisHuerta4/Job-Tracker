@@ -4,6 +4,8 @@ import { loginUser } from "../api/auth.api";
 import { AuthContext } from "../context/AuthContext";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import { Canvas } from "@react-three/fiber";
+import { AuthScene } from "../components/AuthScene";
 
 const Login = () => {
     const [form, setForm] = useState({ email: "", password: "" });
@@ -71,53 +73,70 @@ const Login = () => {
     };
 
     return (
-        <div ref={containerRef} className="auth-bg">
+        <div ref={containerRef} className="flex h-screen bg-black text-white overflow-hidden font-sans">
 
-            <div className="auth-card space-y-6">
+            {/* 3D scene */}
+            <div className="hidden md:block md:w-1/2 relative select-none">
+                <Canvas camera={{ position: [0, 0, 10], fov: 45 }} style={{ width: "100%", height: "100%" }}>
+                    <AuthScene />
+                </Canvas>
+                <div className="absolute inset-0 z-10 pointer-events-none flex flex-col justify-end px-12 pb-12">
+                    <div className="text-[2.5rem] leading-[1.1] lg:text-[3.5rem]">
+                        <p className="font-light text-white/90 tracking-tight">Track Your</p>
+                        <p className="font-light text-white/90 tracking-tight">Career</p>
+                        <p className="font-black tracking-tight mt-1">Journey.</p>
+                    </div>
+                </div>
+            </div>
 
-                <div className="space-y-1 text-center">
-                    <h1 className="auth-title">Log In</h1>
-                    <p className="auth-subtitle">
-                        Log in to manage your job applications
+            {/* Form */}
+            <div className="flex-1 flex items-center justify-center px-6 border-l border-white/10">
+                <div className="auth-card space-y-6">
+
+                    <div className="space-y-1 text-center">
+                        <h1 className="auth-title">Log In</h1>
+                        <p className="auth-subtitle">
+                            Log in to manage your job applications
+                        </p>
+                    </div>
+
+                    {error && (
+                        <p className="text-sm text-red-500 bg-red-500/10 border border-red-500/20 p-2 rounded-lg">
+                            {error}
+                        </p>
+                    )}
+
+                    <form onSubmit={handleSubmit} className="space-y-4">
+                        <input
+                            name="email"
+                            type="email"
+                            placeholder="Email"
+                            onChange={handleChange}
+                            className="auth-input"
+                            required
+                        />
+
+                        <input
+                            name="password"
+                            type="password"
+                            placeholder="Password"
+                            onChange={handleChange}
+                            className="auth-input"
+                            required
+                        />
+
+                        <button className="auth-button">
+                            Login
+                        </button>
+                    </form>
+
+                    <p className="text-sm text-center text-white/70">
+                        No account?{" "}
+                        <Link to="/register" className="text-white font-medium hover:underline">
+                            Register
+                        </Link>
                     </p>
                 </div>
-
-                {error && (
-                    <p className="text-sm text-red-500 bg-red-500/10 border border-red-500/20 p-2 rounded-lg">
-                        {error}
-                    </p>
-                )}
-
-                <form onSubmit={handleSubmit} className="space-y-4">
-                    <input
-                        name="email"
-                        type="email"
-                        placeholder="Email"
-                        onChange={handleChange}
-                        className="auth-input"
-                        required
-                    />
-
-                    <input
-                        name="password"
-                        type="password"
-                        placeholder="Password"
-                        onChange={handleChange}
-                        className="auth-input"
-                        required
-                    />
-
-                    <button className="auth-button">
-                        Login
-                    </button>
-                </form>
-
-                <p className="text-sm text-center text-white/70">
-                    No account?{" "}
-                    <Link to="/register" className="text-white font-medium hover:underline">
-                        Register
-                    </Link>
-                </p>
             </div>
         </div>
     );
