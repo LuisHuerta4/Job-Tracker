@@ -67,7 +67,7 @@ const ApplicationDetailsModal = ({ app, onClose, onChange }) => {
     return (
         <div
             ref={backdropRef}
-            className="fixed inset-0 bg-black/60 flex items-center justify-center z-50"
+            className="fixed inset-0 bg-black/50 backdrop-blur-md flex items-center justify-center z-50"
             onMouseDown={handleClose}
         >
             <div
