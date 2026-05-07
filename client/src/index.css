@@ -8,12 +8,12 @@
     --font-sans: "Inter", sans-serif;
 
     /* Core Backgrounds */
-    --color-bg-main: #181818;
+    --color-bg-main: #000000;
     --color-bg-secondary: #393939;
     --color-bg-card: #1f1f1f;
 
     /* Borders & Dividers */
-    --color-border: #2a2a2a;
+    --color-border: rgba(255, 255, 255, 0.1);
 
     /* Text Colors */
     --color-text-primary: #ffffff;
@@ -34,15 +34,17 @@
 html,
 body {
     width: 100%;
-    background-color: var(--color-bg-main);
+    background-color: #000;
     color: var(--color-text-primary);
     font-family: var(--font-sans);
     scroll-behavior: smooth;
 }
 
 @utility select-dark {
-    @apply bg-bg-card text-white border border-border rounded-md px-2 py-1 text-sm;
-    @apply focus:outline-none focus:border-white transition;
+    background-color: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    @apply text-white rounded-md px-2 py-1 text-sm;
+    @apply focus:outline-none transition;
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -55,7 +57,11 @@ body {
 }
 
 @utility card {
-    @apply bg-bg-card border border-border rounded-xl p-5 transition;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    @apply rounded-xl p-5 transition;
 }
 
 @utility heading {
@@ -69,17 +75,25 @@ body {
 }
 
 @utility auth-card {
-    @apply bg-bg-card border border-border p-8 w-full max-w-md rounded-xl;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    @apply p-8 w-full max-w-md rounded-xl;
 }
 
 @utility auth-input {
     @apply w-full px-3 py-2 rounded-md outline-none transition;
     @apply bg-transparent text-white placeholder:text-(--color-text-muted);
-    @apply border border-border focus:border-white;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+
+    &:focus {
+        border-color: rgba(255, 255, 255, 0.5);
+    }
 }
 
 @utility auth-button {
-    @apply w-full px-4 py-2 rounded-md bg-white text-black text-sm font-medium transition hover:bg-gray-300 cursor-pointer hover:-translate-y-0.5
+    @apply w-full px-4 py-2 rounded-md bg-white text-black text-sm font-medium transition hover:bg-gray-200 cursor-pointer hover:-translate-y-0.5
 }
 
 @utility auth-title {
@@ -104,9 +118,16 @@ body {
 
 @utility stat-circle {
     @apply w-28 h-28 md:w-32 md:h-32 rounded-full flex flex-col items-center justify-center;
-    background-color: var(--color-bg-card);
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     border: 1px solid;
     transition: all 0.2s ease;
+
+    &:hover {
+        background: rgba(255, 255, 255, 0.08);
+        transform: scale(1.03);
+    }
 }
 
 @utility stat-value {
@@ -150,8 +171,14 @@ body {
 /* Navbar */
 
 @utility navbar {
-    @apply flex justify-between items-center px-6 py-4 border-b border-border;
-    background: var(--color-bg-main);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    @apply flex justify-between items-center px-6 py-4;
 }
 
 @utility navbar-logo {
@@ -168,10 +195,11 @@ body {
 }
 
 @utility navbar-logout {
-    @apply px-3 py-1 border border-border rounded-md transition-colors;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    @apply px-3 py-1 rounded-md transition-colors;
 
     &:hover {
-        background: var(--color-bg-secondary);
+        background: rgba(255, 255, 255, 0.08);
     }
 }
 
@@ -183,10 +211,15 @@ body {
 }
 
 @utility app-card {
-    @apply bg-bg-card border border-border rounded-xl p-5 space-y-3 transition;
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    @apply rounded-xl p-5 space-y-3 transition;
 
     &:hover {
-        border-color: white;
+        background: rgba(255, 255, 255, 0.08);
+        border-color: rgba(255, 255, 255, 0.2);
         transform: translateY(-2px);
     }
 }
@@ -225,21 +258,35 @@ body {
 /* Table */
 
 @utility dashboard-table {
-    @apply w-full text-sm border border-border rounded-lg overflow-hidden;
+    @apply w-full text-sm rounded-lg overflow-hidden;
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 @utility dashboard-table-row {
-    @apply border-b border-border hover:bg-bg-secondary transition;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    transition: background 0.15s ease;
+
+    &:hover {
+        background: rgba(255, 255, 255, 0.05);
+    }
 }
 
 /* Kanban */
 
 @utility kanban-column {
-    @apply bg-bg-card border border-border rounded-xl p-4 min-h-[420px] flex flex-col;
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    @apply rounded-xl p-4 min-h-[420px] flex flex-col;
 }
 
 @utility kanban-column-header {
-    @apply flex justify-between items-center pb-2 border-b border-border;
+    @apply flex justify-between items-center pb-2;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
     font-family: var(--font-heading);
     letter-spacing: 0.05em;
 }
@@ -251,7 +298,7 @@ body {
 @utility styled-scroll {
     overflow-y: auto;
     scrollbar-width: thin;
-    scrollbar-color: var(--color-bg-secondary) transparent;
+    scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
 
     &::-webkit-scrollbar {
         width: 4px;
@@ -262,12 +309,12 @@ body {
     }
 
     &::-webkit-scrollbar-thumb {
-        background: var(--color-bg-secondary);
+        background: rgba(255, 255, 255, 0.15);
         border-radius: 9999px;
     }
 
     &::-webkit-scrollbar-thumb:hover {
-        background: var(--color-text-muted);
+        background: rgba(255, 255, 255, 0.3);
     }
 }
 
@@ -276,10 +323,15 @@ body {
 }
 
 @utility kanban-card {
-    @apply bg-bg-secondary border border-border rounded-lg p-3 cursor-grab transition;
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    @apply rounded-lg p-3 cursor-grab transition;
 
     &:hover {
-        border-color: white;
-        transform: translateY(-5px);
+        background: rgba(255, 255, 255, 0.1);
+        border-color: rgba(255, 255, 255, 0.25);
+        transform: translateY(-3px);
     }
 }
