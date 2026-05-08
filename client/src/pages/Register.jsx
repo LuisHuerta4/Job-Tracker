@@ -54,7 +54,6 @@ const Register = () => {
     }, { scope: containerRef });
 
     const [form, setForm] = useState({
-        name: "",
         email: "",
         password: "",
     });
@@ -112,14 +111,6 @@ const Register = () => {
                     )}
 
                     <form onSubmit={handleSubmit} className="space-y-4">
-                        <input
-                            name="name"
-                            placeholder="Full Name"
-                            onChange={handleChange}
-                            className="auth-input"
-                            required
-                        />
-
                         <input
                             name="email"
                             type="email"
