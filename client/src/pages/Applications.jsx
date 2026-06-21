@@ -8,12 +8,15 @@ import TableView from "../views/TableView";
 import KanbanView from "../views/KanbanView";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import { useDebounce } from "../hooks/useDebounce";
 
 const Applications = () => {
     const [view, setView] = useState("cards");
     const [apps, setApps] = useState([]);
     const [loading, setLoading] = useState(true);
     const [filter, setFilter] = useState("All");
+    const [search, setSearch] = useState("");
+    const debouncedSearch = useDebounce(search, 250);
     const [showForm, setShowForm] = useState(false);
     const modalRef = useRef(null);
     const overlayRef = useRef(null);
@@ -55,10 +58,13 @@ const Applications = () => {
         }
     }, [showForm]);
 
-    const filteredApps =
-        filter === "All"
-            ? apps
-            : apps.filter((app) => app.status === filter);
+    const filteredApps = apps
+        .filter((app) => filter === "All" || app.status === filter)
+        .filter((app) =>
+            app.company
+                ?.toLowerCase()
+                .includes(debouncedSearch.trim().toLowerCase())
+        );
 
     const loadApplications = async () => {
         const data = await getApplications();
@@ -103,10 +109,34 @@ const Applications = () => {
                 <ViewTabs view={view} setView={setView} />
 
                 <div className="flex gap-3 items-center">
+                    <div className="relative">
+                        <svg
+                            className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-(--color-text-muted) pointer-events-none"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            strokeWidth={2}
+                        >
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 1 0 6.4 6.4a7.5 7.5 0 0 0 10.25 10.25Z"
+                            />
+                        </svg>
+                        <input
+                            type="text"
+                            value={search}
+                            onChange={(e) => setSearch(e.target.value)}
+                            placeholder="Search by company..."
+                            aria-label="Search applications by company name"
+                            className="auth-input pl-9 w-56"
+                        />
+                    </div>
+
                     <select
                         value={filter}
                         onChange={(e) => setFilter(e.target.value)}
-                        className="select-dark"
+                        className="select-dark bg-bg-card"
                     >
                         <option>All</option>
                         <option>Applied</option>
@@ -130,6 +160,10 @@ const Applications = () => {
                 ) : apps.length === 0 ? (
                     <p className="subtle-text">
                         No applications yet. Add your first one.
+                    </p>
+                ) : filteredApps.length === 0 ? (
+                    <p className="subtle-text">
+                        No applications match your search.
                     </p>
                 ) : (
                     <>
