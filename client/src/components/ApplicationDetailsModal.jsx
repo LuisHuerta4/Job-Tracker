@@ -131,7 +131,7 @@ const ApplicationDetailsModal = ({ app, onClose, onChange }) => {
                                 className="select-dark w-full"
                             >
                                 {STATUSES.map((s) => (
-                                    <option key={s} value={s}>
+                                    <option key={s} value={s} className="bg-bg-secondary text-white">
                                         {s}
                                     </option>
                                 ))}
