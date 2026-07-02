@@ -8,8 +8,8 @@ const TableRow = ({ app, onView }) => {
 
     return (
         <tr className="dashboard-table-row">
-            <td className="px-3 py-5">{app.company}</td>
-            <td className="px-3 py-5">{app.role}</td>
+            <td className="px-3 py-5 max-w-40 truncate">{app.company}</td>
+            <td className="hidden md:table-cell px-3 py-5 max-w-50 truncate">{app.role}</td>
             <td className="px-3 py-5">
                 <span
                     onClick={onView}
@@ -42,7 +42,7 @@ const TableView = ({ applications, onChange }) => {
                 <thead>
                     <tr className="border-b">
                         <th className="text-left p-3">Company</th>
-                        <th className="text-left p-3">Role</th>
+                        <th className="hidden md:table-cell text-left p-3">Role</th>
                         <th className="text-left p-3">Status</th>
                     </tr>
                 </thead>

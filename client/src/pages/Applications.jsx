@@ -108,7 +108,7 @@ const Applications = () => {
             <div className="dashboard-controls">
                 <ViewTabs view={view} setView={setView} />
 
-                <div className="flex gap-3 items-center">
+                <div className="flex flex-col gap-3 md:flex-row md:items-center">
                     <div className="relative">
                         <svg
                             className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-(--color-text-muted) pointer-events-none"
@@ -129,28 +129,30 @@ const Applications = () => {
                             onChange={(e) => setSearch(e.target.value)}
                             placeholder="Search by company..."
                             aria-label="Search applications by company name"
-                            className="auth-input pl-9 w-56"
+                            className="auth-input pl-9 w-full md:w-56"
                         />
                     </div>
 
-                    <select
-                        value={filter}
-                        onChange={(e) => setFilter(e.target.value)}
-                        className="select-dark bg-bg-card"
-                    >
-                        <option>All</option>
-                        <option>Applied</option>
-                        <option>Interviewing</option>
-                        <option>Offer</option>
-                        <option>Rejected</option>
-                    </select>
+                    <div className="flex gap-3 items-center">
+                        <select
+                            value={filter}
+                            onChange={(e) => setFilter(e.target.value)}
+                            className="select-dark bg-bg-card"
+                        >
+                            <option>All</option>
+                            <option>Applied</option>
+                            <option>Interviewing</option>
+                            <option>Offer</option>
+                            <option>Rejected</option>
+                        </select>
 
-                    <button
-                        onClick={() => setShowForm(true)}
-                        className="auth-button"
-                    >
-                        + New Application
-                    </button>
+                        <button
+                            onClick={() => setShowForm(true)}
+                            className="auth-button"
+                        >
+                            + New Application
+                        </button>
+                    </div>
                 </div>
             </div>
 
@@ -167,7 +169,7 @@ const Applications = () => {
                     </p>
                 ) : (
                     <>
-                        {view === "cards" && (
+                        {(view === "cards" || (view === "kanban" && window.innerWidth < 768)) && (
                             <CardView applications={filteredApps} onChange={loadApplications} />
                         )}
 
@@ -175,7 +177,7 @@ const Applications = () => {
                             <TableView applications={filteredApps} onChange={loadApplications} />
                         )}
 
-                        {view === "kanban" && (
+                        {view === "kanban" && window.innerWidth >= 768 && (
                             <KanbanView applications={filteredApps} onStatusChange={updateStatus} />
                         )}
                     </>
@@ -191,7 +193,7 @@ const Applications = () => {
                     <div
                         ref={modalRef}
                         onClick={(e) => e.stopPropagation()}
-                        className="card w-full max-w-lg relative scale-[0.5] transition-transform duration-200"
+                        className="card w-full max-w-lg mx-4 relative scale-[0.5] transition-transform duration-200"
                     >
                         <button
                             onClick={() => setShowForm(false)}

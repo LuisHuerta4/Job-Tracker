@@ -1,8 +1,8 @@
 const ViewTabs = ({ view, setView }) => {
     const tabs = [
-        { id: "cards", label: "Cards" },
-        { id: "table", label: "Table" },
-        { id: "kanban", label: "Kanban" },
+        { id: "cards", label: "Cards", mobileHidden: false },
+        { id: "table", label: "Table", mobileHidden: false },
+        { id: "kanban", label: "Kanban", mobileHidden: true },
     ];
 
     return (
@@ -11,7 +11,7 @@ const ViewTabs = ({ view, setView }) => {
                 <button
                     key={tab.id}
                     onClick={() => setView(tab.id)}
-                    className={`px-4 py-2 text-sm transition-colors ${
+                    className={`px-4 py-2 text-sm transition-colors ${tab.mobileHidden ? "hidden md:block" : ""} ${
                         view === tab.id
                             ? "border-b-2 border-white text-white font-semibold"
                             : "text-text-muted hover:text-text-secondary"

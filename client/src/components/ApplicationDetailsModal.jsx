@@ -73,7 +73,7 @@ const ApplicationDetailsModal = ({ app, onClose, onChange }) => {
             <div
                 ref={modalRef}
                 onMouseDown={(e) => e.stopPropagation()}
-                className="card w-full max-w-lg relative scale-[0.5] transition-transform duration-200"
+                className="card w-full max-w-lg mx-4 relative scale-[0.5] transition-transform duration-200"
             >
 
                 <div className="flex justify-between items-start">
