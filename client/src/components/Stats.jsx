@@ -11,7 +11,7 @@ const Stats = ({ applications }) => {
     );
 
     const StatCircle = ({ label, value }) => (
-        <div className="flex flex-col items-center gap-3">
+        <div className="flex flex-col items-center gap-2 md:gap-3">
             <div className={`stat-circle ${statusColors[label]}`}>
                 <span className="stat-value">{value}</span>
             </div>

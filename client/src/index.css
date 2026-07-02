@@ -153,13 +153,13 @@ body {
 /* Dashboard Stats */
 
 @utility stats-wrapper {
-    @apply grid grid-cols-2 md:grid-cols-5 gap-10 py-6;
+    @apply grid grid-cols-5 gap-3 py-4 md:gap-10 md:py-6;
 }
 
 @utility stat-circle {
     position: relative;
     overflow: hidden;
-    @apply w-28 h-28 md:w-32 md:h-32 rounded-full flex flex-col items-center justify-center;
+    @apply w-full aspect-square md:w-32 md:h-32 rounded-full flex flex-col items-center justify-center;
     background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
@@ -188,12 +188,12 @@ body {
 }
 
 @utility stat-value {
-    @apply text-4xl md:text-5xl font-medium text-white;
+    @apply text-xl md:text-5xl font-medium text-white;
     font-family: var(--font-heading);
 }
 
 @utility stat-label {
-    @apply text-sm tracking-wide uppercase;
+    @apply text-[7px] md:text-sm tracking-wide uppercase;
     color: var(--color-text-secondary);
     font-family: var(--font-heading);
 }
