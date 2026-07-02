@@ -42,7 +42,7 @@ exports.register = async (req, res) => {
 
         const token = generateToken(user._id);
         setAuthCookie(res, token);
-        res.status(201).json({ message: "Registered" });
+        res.status(201).json({ message: "Registered", token });
     } catch (error) {
         res.status(500).json({ message: "Server error" });
     }
@@ -71,7 +71,7 @@ exports.login = async (req, res) => {
 
         const token = generateToken(user._id);
         setAuthCookie(res, token);
-        res.json({ message: "Logged in" });
+        res.json({ message: "Logged in", token });
     } catch (error) {
         res.status(500).json({ message: "Server error" });
     }

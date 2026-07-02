@@ -9,7 +9,7 @@ export const AuthProvider = ({ children }) => {
     );
 
     const login = (data) => {
-        const authState = { authenticated: true };
+        const authState = { authenticated: true, token: data.token };
         localStorage.setItem("authState", JSON.stringify(authState));
         setUser(authState);
     };

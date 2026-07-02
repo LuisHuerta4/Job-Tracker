@@ -6,6 +6,14 @@ const api = axios.create({
     timeout: 15000,
 });
 
+api.interceptors.request.use((config) => {
+    const authState = JSON.parse(localStorage.getItem("authState"));
+    if (authState?.token) {
+        config.headers.Authorization = `Bearer ${authState.token}`;
+    }
+    return config;
+});
+
 // Global response interceptor to handle 401 Unauthorized errors
 // Ex. if the user's session expires, they will be logged out and redirected to the login page
 api.interceptors.response.use(
